@@ -19,16 +19,17 @@ def getImageFromUser():
         imagefile.save(os.path.join(from_root(), "apiImage/api.jpg"))
         return "OK", 200
 
+
 @app.route('/deviceoff', methods=['GET', 'POST'])
 def deviceoff():
     if request.method == 'GET':
         return 'False'
 
+
 @app.route('/deviceon', methods=['GET', 'POST'])
 def deviceon():
     if request.method == 'GET':
         return 'True'
-
 
 
 @app.route('/getimage', methods=['GET', 'POST'])
@@ -42,6 +43,7 @@ def registeration():
 @app.route('/authenticated', methods=['GET', 'POST'])
 def authenticated():
     pass
+
 
 # Normalize the image and convert it greyscale
 # def main():
