@@ -1,0 +1,28 @@
+[2022-01-22 18:59:30.500 - ERROR - imageCapture ] - Error while capturing Images '<' not supported between instances of 'int' and 'str'
+[2022-01-22 18:59:30.500 - ERROR - imageCapture ] - Error while capturing Images '<' not supported between instances of 'int' and 'str'
+[2022-01-22 19:00:52.879 - INFO - imageCapture ] - Successfully captured Images
+[2022-01-22 19:00:52.879 - INFO - imageCapture ] - Successfully captured Images
+[2022-01-22 19:01:00.289 - INFO - face ] - {'distance': 60.0, 'verified': 3}
+[2022-01-22 19:01:00.289 - INFO - face ] - {'distance': 60.0, 'verified': 3}
+[2022-01-22 19:01:14.873 - INFO - imageCapture ] - Program stopped
+[2022-01-22 19:01:14.873 - INFO - imageCapture ] - Program stopped
+[2022-01-22 19:32:09.523 - INFO - imageCapture ] - Program stopped
+[2022-01-22 19:32:09.523 - INFO - imageCapture ] - Program stopped
+[2022-01-22 19:32:27.317 - INFO - imageCapture ] - Program stopped
+[2022-01-22 19:32:27.317 - INFO - imageCapture ] - Program stopped
+[2022-01-22 19:36:42.499 - INFO - imageCapture ] - Successfully captured Images
+[2022-01-22 19:36:42.499 - INFO - imageCapture ] - Successfully captured Images
+[2022-01-22 19:36:49.365 - INFO - face ] - {'distance': 100.0, 'verified': 5}
+[2022-01-22 19:36:49.365 - INFO - face ] - {'distance': 100.0, 'verified': 5}
+[2022-01-22 20:39:09.451 - INFO - imageCapture ] - Successfully captured Images
+[2022-01-22 20:39:09.451 - INFO - imageCapture ] - Successfully captured Images
+[2022-01-22 20:39:16.946 - INFO - face ] - {'distance': 20.0, 'verified': 1}
+[2022-01-22 20:39:16.946 - INFO - face ] - {'distance': 20.0, 'verified': 1}
+[2022-01-22 20:41:48.266 - INFO - imageCapture ] - Successfully captured Images
+[2022-01-22 20:41:48.266 - INFO - imageCapture ] - Successfully captured Images
+[2022-01-22 20:41:56.110 - INFO - face ] - {'distance': 100.0, 'verified': 5}
+[2022-01-22 20:41:56.110 - INFO - face ] - {'distance': 100.0, 'verified': 5}
+[2022-01-22 20:42:03.765 - ERROR - imageCapture ] - Error while capturing Images OpenCV(4.5.5) D:\a\opencv-python\opencv-python\opencv\modules\imgproc\src\color.cpp:182: error: (-215:Assertion failed) !_src.empty() in function 'cv::cvtColor'
+
+[2022-01-22 20:42:03.765 - ERROR - imageCapture ] - Error while capturing Images OpenCV(4.5.5) D:\a\opencv-python\opencv-python\opencv\modules\imgproc\src\color.cpp:182: error: (-215:Assertion failed) !_src.empty() in function 'cv::cvtColor'
+
