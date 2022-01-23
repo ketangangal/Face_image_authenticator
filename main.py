@@ -19,6 +19,17 @@ def getImageFromUser():
         imagefile.save(os.path.join(from_root(), "apiImage/api.jpg"))
         return "OK", 200
 
+@app.route('/deviceoff', methods=['GET', 'POST'])
+def deviceoff():
+    if request.method == 'GET':
+        return 'False'
+
+@app.route('/deviceon', methods=['GET', 'POST'])
+def deviceon():
+    if request.method == 'GET':
+        return 'True'
+
+
 
 @app.route('/getimage', methods=['GET', 'POST'])
 def registeration():
@@ -33,16 +44,16 @@ def authenticated():
     pass
 
 # Normalize the image and convert it greyscale
-def main():
-    apiImage_path = os.path.join(from_root(), "apiImage", 'api.jpg')
-    imageStore_path = os.path.join(from_root(), "imageStore")
-
-    # status, msg = capture_image(imageStore_path, 5)
-    # if status:
-    #     result = detect_face(apiImage_path, imageStore_path)
-    #     print(result)
+# def main():
+#     apiImage_path = os.path.join(from_root(), "apiImage", 'api.jpg')
+#     imageStore_path = os.path.join(from_root(), "imageStore")
+#
+#     # status, msg = capture_image(imageStore_path, 5)
+#     # if status:
+#     #     result = detect_face(apiImage_path, imageStore_path)
+#     #     print(result)
 
 
 if __name__ == "__main__":
-    main()
+    # main()
     app.run(debug=False, port=8080)
