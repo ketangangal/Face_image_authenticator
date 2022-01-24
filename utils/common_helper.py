@@ -2,6 +2,7 @@ import yaml
 import uuid
 import os
 from from_root import from_root
+from cryptography.fernet import Fernet
 
 
 def read_config(config):
@@ -65,4 +66,24 @@ def check_folder(unique_id=None, where=None):
             return "Wrong path in where"
     except Exception as e:
         return f"Error in make_user_folder {e.__str__()}"
+
+
+def encrypt(message=None):
+    try:
+        key = b'TrN6MYpiY53IMPVeZj7qm7vDAbRlwcMX85VBbwM5wIM='
+        fernet = Fernet(key)
+        encMessage = fernet.encrypt(message.encode())
+        return encMessage
+    except Exception as e:
+        return f"Error in encrypt {e.__str__()}"
+
+
+def decrypt(encMessage=None):
+    try:
+        key = b'TrN6MYpiY53IMPVeZj7qm7vDAbRlwcMX85VBbwM5wIM='
+        fernet = Fernet(key)
+        decMessage = fernet.decrypt(encMessage)
+        return decMessage.decode("utf-8")
+    except Exception as e:
+        return f"Error in decrypt {e.__str__()}"
 
