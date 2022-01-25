@@ -2,7 +2,8 @@ from deepface import DeepFace
 from from_root import from_root
 from loguru import logger
 import os
-
+from flask import session
+from flask_session import Session
 
 logger.add(sink=os.path.join(from_root(), 'logs.log'),
            format="[{time:YYYY-MM-DD HH:mm:ss.SSS} - {level} - {module} ] - {message}",
@@ -20,7 +21,7 @@ def detect_face(api_image=None, image_folder_path=None):
 
         for i in os.listdir(path=image_folder_path):
 
-            path2 = os.path.join(from_root(), 'imageStore', i)
+            path2 = os.path.join(from_root(), 'imageStore', str(session['pid']), i)
             result = DeepFace.verify(img1_path=api_image, img2_path=path2, enforce_detection=False)
 
             final_result["distance"] = final_result.get("distance", 0) + result['distance']
