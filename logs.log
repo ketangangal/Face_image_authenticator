@@ -26,3 +26,60 @@
 
 [2022-01-22 20:42:03.765 - ERROR - imageCapture ] - Error while capturing Images OpenCV(4.5.5) D:\a\opencv-python\opencv-python\opencv\modules\imgproc\src\color.cpp:182: error: (-215:Assertion failed) !_src.empty() in function 'cv::cvtColor'
 
+[2022-01-25 14:48:03.612 - ERROR - database_connection ] - Error in mysql connection 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+[2022-01-25 14:48:03.612 - ERROR - database_connection ] - Error in mysql connection 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+[2022-01-25 14:48:03.612 - ERROR - database_connection ] - Error in mysql connection 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+[2022-01-25 14:48:03.612 - ERROR - database_connection ] - Error in fetch one 'bool' object has no attribute 'cursor'
+[2022-01-25 14:48:03.612 - ERROR - database_connection ] - Error in fetch one 'bool' object has no attribute 'cursor'
+[2022-01-25 14:48:03.612 - ERROR - database_connection ] - Error in fetch one 'bool' object has no attribute 'cursor'
+[2022-01-25 14:48:50.014 - ERROR - database_connection ] - Error in fetch one 1054 (42S22): Unknown column 'None' in 'where clause'
+[2022-01-25 14:48:50.014 - ERROR - database_connection ] - Error in fetch one 1054 (42S22): Unknown column 'None' in 'where clause'
+[2022-01-25 14:48:50.014 - ERROR - database_connection ] - Error in fetch one 1054 (42S22): Unknown column 'None' in 'where clause'
+[2022-01-25 14:49:30.685 - ERROR - database_connection ] - Error in fetch one 1054 (42S22): Unknown column 'None' in 'where clause'
+[2022-01-25 14:49:30.685 - ERROR - database_connection ] - Error in fetch one 1054 (42S22): Unknown column 'None' in 'where clause'
+[2022-01-25 14:49:30.685 - ERROR - database_connection ] - Error in fetch one 1054 (42S22): Unknown column 'None' in 'where clause'
+[2022-01-25 14:50:24.264 - ERROR - database_connection ] - Error in fetch one 1054 (42S22): Unknown column 'password' in 'where clause'
+[2022-01-25 14:50:24.264 - ERROR - database_connection ] - Error in fetch one 1054 (42S22): Unknown column 'password' in 'where clause'
+[2022-01-25 14:50:24.264 - ERROR - database_connection ] - Error in fetch one 1054 (42S22): Unknown column 'password' in 'where clause'
+[2022-01-25 15:08:38.581 - ERROR - database_connection ] - Error in fetch one 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '@gmail.com and pass=12341' at line 1
+[2022-01-25 15:08:38.581 - ERROR - database_connection ] - Error in fetch one 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '@gmail.com and pass=12341' at line 1
+[2022-01-25 15:08:38.581 - ERROR - database_connection ] - Error in fetch one 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '@gmail.com and pass=12341' at line 1
+[2022-01-25 15:37:15.524 - ERROR - database_connection ] - Error in fetch one 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''1234' at line 1
+[2022-01-25 15:37:15.524 - ERROR - database_connection ] - Error in fetch one 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''1234' at line 1
+[2022-01-25 15:37:15.524 - ERROR - database_connection ] - Error in fetch one 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''1234' at line 1
+[2022-01-25 15:38:36.243 - ERROR - database_connection ] - Error in fetch one 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''1234' at line 1
+[2022-01-25 15:38:36.243 - ERROR - database_connection ] - Error in fetch one 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''1234' at line 1
+[2022-01-25 15:38:36.243 - ERROR - database_connection ] - Error in fetch one 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''1234' at line 1
+[2022-01-25 15:39:25.595 - ERROR - database_connection ] - Error in fetch one 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''1234' at line 1
+[2022-01-25 15:39:25.595 - ERROR - database_connection ] - Error in fetch one 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''1234' at line 1
+[2022-01-25 15:39:25.595 - ERROR - database_connection ] - Error in fetch one 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''1234' at line 1
+[2022-01-25 15:48:06.126 - ERROR - face ] - Error in face detection [WinError 3] The system cannot find the path specified: 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\imageStore\\1234'
+[2022-01-25 15:48:06.126 - ERROR - face ] - Error in face detection [WinError 3] The system cannot find the path specified: 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\imageStore\\1234'
+[2022-01-25 15:48:06.126 - ERROR - face ] - Error in face detection [WinError 3] The system cannot find the path specified: 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\imageStore\\1234'
+[2022-01-25 15:48:41.816 - ERROR - face ] - Error in face detection [WinError 3] The system cannot find the path specified: 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\imageStore\\1234'
+[2022-01-25 15:48:41.816 - ERROR - face ] - Error in face detection [WinError 3] The system cannot find the path specified: 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\imageStore\\1234'
+[2022-01-25 15:48:41.816 - ERROR - face ] - Error in face detection [WinError 3] The system cannot find the path specified: 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\imageStore\\1234'
+[2022-01-25 15:49:08.461 - ERROR - face ] - Error in face detection [WinError 3] The system cannot find the path specified: 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\imageStore\\1234'
+[2022-01-25 15:49:08.461 - ERROR - face ] - Error in face detection [WinError 3] The system cannot find the path specified: 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\imageStore\\1234'
+[2022-01-25 15:49:08.461 - ERROR - face ] - Error in face detection [WinError 3] The system cannot find the path specified: 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\imageStore\\1234'
+[2022-01-25 15:50:28.099 - ERROR - face ] - Error in face detection OOM when allocating tensor with shape[7,7,512,4096] and type float on /job:localhost/replica:0/task:0/device:CPU:0 by allocator cpu [Op:Mul]
+[2022-01-25 15:50:28.099 - ERROR - face ] - Error in face detection OOM when allocating tensor with shape[7,7,512,4096] and type float on /job:localhost/replica:0/task:0/device:CPU:0 by allocator cpu [Op:Mul]
+[2022-01-25 15:50:28.099 - ERROR - face ] - Error in face detection OOM when allocating tensor with shape[7,7,512,4096] and type float on /job:localhost/replica:0/task:0/device:CPU:0 by allocator cpu [Op:Mul]
+[2022-01-25 15:52:14.685 - ERROR - face ] - Error in face detection OOM when allocating tensor with shape[7,7,512,4096] and type float on /job:localhost/replica:0/task:0/device:CPU:0 by allocator cpu [Op:AddV2]
+[2022-01-25 15:52:14.685 - ERROR - face ] - Error in face detection OOM when allocating tensor with shape[7,7,512,4096] and type float on /job:localhost/replica:0/task:0/device:CPU:0 by allocator cpu [Op:AddV2]
+[2022-01-25 15:52:14.685 - ERROR - face ] - Error in face detection OOM when allocating tensor with shape[7,7,512,4096] and type float on /job:localhost/replica:0/task:0/device:CPU:0 by allocator cpu [Op:AddV2]
+[2022-01-25 15:55:18.951 - ERROR - face ] - Error in face detection ('Confirm that ', 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\apiImage\\1234\\0.jpg', ' exists')
+[2022-01-25 15:55:18.951 - ERROR - face ] - Error in face detection ('Confirm that ', 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\apiImage\\1234\\0.jpg', ' exists')
+[2022-01-25 15:55:18.951 - ERROR - face ] - Error in face detection ('Confirm that ', 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\apiImage\\1234\\0.jpg', ' exists')
+[2022-01-25 15:59:24.981 - ERROR - face ] - Error in face detection ('Confirm that ', 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\apiImage\\1234\\0.jpg', ' exists')
+[2022-01-25 15:59:24.981 - ERROR - face ] - Error in face detection ('Confirm that ', 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\apiImage\\1234\\0.jpg', ' exists')
+[2022-01-25 15:59:24.981 - ERROR - face ] - Error in face detection ('Confirm that ', 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\apiImage\\1234\\0.jpg', ' exists')
+[2022-01-25 16:02:42.438 - ERROR - face ] - Error in face detection join() argument must be str or bytes, not 'int'
+[2022-01-25 16:02:42.438 - ERROR - face ] - Error in face detection join() argument must be str or bytes, not 'int'
+[2022-01-25 16:02:42.438 - ERROR - face ] - Error in face detection join() argument must be str or bytes, not 'int'
+[2022-01-25 16:11:53.871 - INFO - face ] - {'distance': 100.0, 'verified': 4}
+[2022-01-25 16:11:53.871 - INFO - face ] - {'distance': 100.0, 'verified': 4}
+[2022-01-25 16:11:53.871 - INFO - face ] - {'distance': 100.0, 'verified': 4}
+[2022-01-25 16:19:07.963 - INFO - face ] - {'distance': 100.0, 'verified': 4}
+[2022-01-25 16:19:07.963 - INFO - face ] - {'distance': 100.0, 'verified': 4}
+[2022-01-25 16:19:07.963 - INFO - face ] - {'distance': 100.0, 'verified': 4}
