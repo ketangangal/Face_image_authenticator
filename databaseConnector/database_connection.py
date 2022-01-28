@@ -3,7 +3,7 @@ from loguru import logger
 from from_root import from_root
 from mysql.connector import connect
 
-logger.add(sink=os.path.join(from_root(), 'logs.log'),
+logger.add(sink=os.path.join(from_root(), "logs", 'logs.log'),
            format="[{time:YYYY-MM-DD HH:mm:ss.SSS} - {level} - {module} ] - {message}",
            level="INFO")
 
