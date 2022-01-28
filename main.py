@@ -1,11 +1,11 @@
 import os
-from flask import Flask, request, session
+from flask import Flask, request, session, jsonify
 from flask_session import Session
 from from_root import from_root
 from faceRecogniton.face import detect_face
 from imageCapture.imageCapture import capture_image
 from databaseConnector.database_connection import MysqlHelper
-from utils.common_helper import unique_id_generator
+from utils.common_helper import unique_id_generator, make_user_folder
 import re
 
 mysql = MysqlHelper(host="127.0.0.1", password="@123", user="root")
@@ -85,10 +85,10 @@ def login():
             session['email'] = account[2]
             session['pid'] = account[5]
             # Redirect to gate page
-            return "Logged in", 200
+            return jsonify("authorized"), 200
         else:
             # Redirect to signup page
-            return "No Content ", 204
+            return jsonify("Unauthorized"), 401
 
 
 @app.route('/gateaccess/<gate>', methods=['GET', 'POST'])
@@ -102,16 +102,18 @@ def gate_access(gate=None):
                 query = f"select mainGate from fia.details where empid='{session['pid']}';"
                 value = mysql.fetch_one(query)
                 if value:
-                    # Open camera
-                    # click photo
-                    # store that in apiimage folder
-                    apiImage_path = os.path.join(from_root(), "apiImage", str(session['pid']), "api.jpg")
-                    imageStore_path = os.path.join(from_root(), "imageStore", str(session['pid']))
-                    verified = detect_face(apiImage_path, imageStore_path)
-                    if verified['distance'] >= 70.0 and verified['verified'] > 3:
-                        status = True
-                        # return "user not verified"
-                        return "Access granted"
+                    folder_status = make_user_folder(unique_id=session['pid'], where='api')
+                    if folder_status == "Folder Created":
+                        # Open camera
+                        # click photo
+                        apiImage_path = os.path.join(from_root(), "apiImage", str(session['pid']), "api.jpg")
+                        imageStore_path = os.path.join(from_root(), "imageStore", str(session['pid']))
+                        verified = detect_face(apiImage_path, imageStore_path)
+                        if verified['distance'] >= 70.0 and verified['verified'] > 3:
+                            status = True
+                            return "Access granted"
+                        else:
+                            return "Not verified"
                 else:
                     return "No value in database"
 
@@ -152,10 +154,9 @@ def signup():
         password = userData['password']
         phone_number = userData['phonenumber']
         confirm_password = userData['confirm_password']
-        account = mysql.fetch_one(f"select * from fia.details where email={email}")
-
+        account = mysql.fetch_one(f"select * from fia.details where email='{email}'")
         if account:
-            return "Account already exists"
+            return jsonify("Account already exists"), 409
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
             msg = 'Invalid email address !'
         elif not re.match(r'[A-Za-z0-9]+', username):
@@ -168,13 +169,23 @@ def signup():
             msg = 'wrong phone number !'
         else:
             uniqueID = str(unique_id_generator())
-            query = f"Insert Into fia.details (name,email,pass,phoneNumber, empid, mainGate, innovationGate) values({username},{email},{password},{phone_number},{uniqueID},{0},{0})"
+            query = f"Insert Into fia.details (name,email,pass,phoneNumber, empid, mainGate, innovationGate) values('{username}','{email}','{password}','{phone_number}','{uniqueID}','{0}','{0}');"
             inserted = mysql.insert_record(query)
             if inserted:
-                return "Successful redirect to login"
-            else:
-                return "Error while updating"
+                # store in folder make_user_folder
+                folder_status = make_user_folder(unique_id=uniqueID, where='imageStore')
+                if folder_status == "Folder Created":
+                    # Open camera
+                    # take 5 photos
+                    pass
+                else:
+                    return "folder is already present"
 
+                return jsonify("Account Created"), 201
+            else:
+                return jsonify("Please Enter correctly"), 420
+
+        return jsonify({"Error": msg}), 420
     else:
         pass
 
