@@ -11,12 +11,17 @@ import re
 mysql = MysqlHelper(host="127.0.0.1", password="Ramramsa@123", user="root")
 
 app = Flask(__name__)
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
 
 
 status = False
+
+@app.route('/')
+def index():
+    if not session.get('name'):
+        """Redirect to login page"""
+        return "Ask user to login first"
+    else:
+        return "Move to Gate Asking Page"
 
 
 @app.route('/device', methods=['GET', 'POST'])
@@ -29,74 +34,59 @@ def device_status():
 @app.route('/registeration', methods=['GET', 'POST'])
 def registeration():
     if request.method == 'GET':
-        return "OK", 200
+        return jsonify('OK'), 200
 
     if request.method == 'POST':
-        print('Inside')
         count = 0
-        print(request.files.items())
         pid = request.form['pid']
-        print(pid)
         folder_status = make_user_folder(unique_id=pid, where='imageStore')
         if folder_status == "Folder Created":
             for imagefile in request.files.items():
                 imagefile[1].save(os.path.join(from_root(), "imageStore", pid, str(count)+".jpg"))
                 count += 1
-                print(count)
             return jsonify({"Status": "Folder Created Images Stored"}), 200
         else:
-            return jsonify({"Error": "Error While Creating Folder"}), 404
-
-
-
-@app.route('/authenticated', methods=['GET', 'POST'])
-def authenticated():
-    pass
-
-
-@app.route('/')
-def index():
-    if not session.get('name'):
-        """Redirect to login page"""
-        return "Ask user to login first"
-    else:
-        return "Move to Gate Asking Page"
+            return jsonify({"Error": "Folder Already Present"}), 400
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == "GET":
-        return 'OK', 200
+        return jsonify('OK'), 200
     if request.method == "POST":
         # Getting email and pass and checking
         userData = request.get_json()
         account = mysql.fetch_one(f"Select * from fia.details where email='{userData['email']}' and pass='{userData['pass']}';")
         if account:
-            session['name'] = account[1]
-            session['email'] = account[2]
-            session['pid'] = account[5]
-            # Redirect to gate page
             return jsonify({"status": "authorized", "PID": account[5]}), 200
         else:
             # Redirect to signup page
             return jsonify("Unauthorized"), 401
 
-# @app.route('/getimage', methods=['GET', 'POST'])
-# def getImageFromUser():
-#     if request.method == 'GET':
-#         return "OK", 200
-#
-#     if request.method == 'POST':
-#         try:
-#             print('inside post')
-#             pid = request.form['pid']
-#             imagefile = request.files['image_0']
-#             folder_status = make_user_folder(unique_id=pid, where='api')
-#             print(folder_status)
-#             imagefile.save(os.path.join(from_root(), "apiImage", pid, "user.jpg"))
-#             return jsonify({"Status": "Folder Created Image Stored"}), 200
-#         except Exception as e:
-#             return jsonify({"Status": e.__str__()}), 404
+
+@app.route('/permission', methods=['GET', 'POST'])
+def permission():
+    if request.method == 'GET':
+        return jsonify({"Status": "OK"}), 200
+    else:
+        if request.method == "POST":
+            data = request.get_json()
+            if data['gate'] == 'MainGate':
+                query = f"update fia.details set mainGate = 1 where empid = '{data['pid']}';"
+                value = mysql.update_record(query)
+                if value:
+                    return jsonify({"Status": "Permission Given"}), 200
+                else:
+                    return jsonify({"Status": "Permission denied"}), 101
+
+            if data['gate'] == 'InnovationGate':
+                query = f"update fia.details set innovationGate = 1 where empid = '{data['pid']}';"
+                value = mysql.update_record(query)
+                if value:
+                    return jsonify({"Status": "Permission Given"}), 200
+                else:
+                    return jsonify({"Status": "Permission denied"}), 101
+
 
 @app.route('/gateaccess/<gate>', methods=['GET', 'POST'])
 def gate_access(gate=None):
