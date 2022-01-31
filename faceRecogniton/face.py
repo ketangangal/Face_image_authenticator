@@ -10,7 +10,7 @@ logger.add(sink=os.path.join(from_root(), 'logs.log'),
            level="INFO")
 
 
-def detect_face(api_image=None, image_folder_path=None):
+def detect_face(api_image=None, image_folder_path=None, pid=None):
     """
     :api_image: Image from api
     :image_folder_path: users separate folder path
@@ -18,10 +18,10 @@ def detect_face(api_image=None, image_folder_path=None):
     try:
         final_result = {}
         number_of_store_images = len(os.listdir(path=image_folder_path))
-
+        print(number_of_store_images)
         for i in os.listdir(path=image_folder_path):
 
-            path2 = os.path.join(from_root(), 'imageStore', str(session['pid']), i)
+            path2 = os.path.join(from_root(), 'imageStore', pid, i)
             result = DeepFace.verify(img1_path=api_image, img2_path=path2, enforce_detection=False)
 
             final_result["distance"] = final_result.get("distance", 0) + result['distance']

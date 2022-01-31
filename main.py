@@ -8,7 +8,7 @@ from databaseConnector.database_connection import MysqlHelper
 from utils.common_helper import unique_id_generator, make_user_folder
 import re
 
-mysql = MysqlHelper(host="127.0.0.1", password="@123", user="root")
+mysql = MysqlHelper(host="127.0.0.1", password="Ramramsa@123", user="root")
 
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
@@ -16,25 +16,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 
-@app.route('/getimage', methods=['GET', 'POST'])
-def getImageFromUser():
-    if request.method == 'GET':
-        return "OK", 200
-
-    if request.method == 'POST':
-        gateNumber = request.form['gateNumber']
-        imagefile = request.files['image']
-        imagefile.save(os.path.join(from_root(), "apiImage/1234/api.jpg"))
-        return "OK", 200
-
-
 status = False
-def set_status(verified):
-    global status
-    if verified is True:
-        status = True
-    else:
-        status = False
 
 
 @app.route('/device', methods=['GET', 'POST'])
@@ -50,12 +32,21 @@ def registeration():
         return "OK", 200
 
     if request.method == 'POST':
+        print('Inside')
         count = 0
-        gatenumber = request.form['metadata']
-        for imagefile in request.files.items():
-            imagefile[1].save(os.path.join(from_root(), "imageStore", str(gatenumber)+ str(count)+".jpg"))
-            count += 1
-        return "OK", 200
+        print(request.files.items())
+        pid = request.form['pid']
+        print(pid)
+        folder_status = make_user_folder(unique_id=pid, where='imageStore')
+        if folder_status == "Folder Created":
+            for imagefile in request.files.items():
+                imagefile[1].save(os.path.join(from_root(), "imageStore", pid, str(count)+".jpg"))
+                count += 1
+                print(count)
+            return jsonify({"Status": "Folder Created Images Stored"}), 200
+        else:
+            return jsonify({"Error": "Error While Creating Folder"}), 404
+
 
 
 @app.route('/authenticated', methods=['GET', 'POST'])
@@ -85,59 +76,75 @@ def login():
             session['email'] = account[2]
             session['pid'] = account[5]
             # Redirect to gate page
-            return jsonify("authorized"), 200
+            return jsonify({"status": "authorized", "PID": account[5]}), 200
         else:
             # Redirect to signup page
             return jsonify("Unauthorized"), 401
 
+# @app.route('/getimage', methods=['GET', 'POST'])
+# def getImageFromUser():
+#     if request.method == 'GET':
+#         return "OK", 200
+#
+#     if request.method == 'POST':
+#         try:
+#             print('inside post')
+#             pid = request.form['pid']
+#             imagefile = request.files['image_0']
+#             folder_status = make_user_folder(unique_id=pid, where='api')
+#             print(folder_status)
+#             imagefile.save(os.path.join(from_root(), "apiImage", pid, "user.jpg"))
+#             return jsonify({"Status": "Folder Created Image Stored"}), 200
+#         except Exception as e:
+#             return jsonify({"Status": e.__str__()}), 404
 
 @app.route('/gateaccess/<gate>', methods=['GET', 'POST'])
 def gate_access(gate=None):
     global status
-    if not session.get('pid'):
-        return "Login first"
+    if request.method == 'GET':
+        return jsonify({"Status": "OK"}), 200
     else:
         if request.method == "POST":
             if gate == "MainGate":
-                query = f"select mainGate from fia.details where empid='{session['pid']}';"
+                pid = request.form['pid']
+                query = f"select mainGate from fia.details where empid='{pid}';"
                 value = mysql.fetch_one(query)
-                if value:
-                    folder_status = make_user_folder(unique_id=session['pid'], where='api')
-                    if folder_status == "Folder Created":
-                        # Open camera
-                        # click photo
-                        apiImage_path = os.path.join(from_root(), "apiImage", str(session['pid']), "api.jpg")
-                        imageStore_path = os.path.join(from_root(), "imageStore", str(session['pid']))
-                        verified = detect_face(apiImage_path, imageStore_path)
-                        if verified['distance'] >= 70.0 and verified['verified'] > 3:
-                            status = True
-                            return "Access granted"
-                        else:
-                            return "Not verified"
-                else:
-                    return "No value in database"
-
-            elif gate == "InnovationLab":
-                query = f"select innovationGate from fia.details where empid='{session['pid']}';"
-                value = mysql.fetch_one(query)
-                if value:
-                    # Open camera
-                    # click photo
-                    # store that in apiimage folder
-                    apiImage_path = os.path.join(from_root(), "apiImage", str(session['pid']), "api.jpg")
-                    imageStore_path = os.path.join(from_root(), "imageStore", str(session['pid']))
-                    verified = detect_face(apiImage_path, imageStore_path)
+                if value[0]:
+                    folder_status = make_user_folder(unique_id=pid, where='api')
+                    imagefile = request.files['image_0']
+                    imagefile.save(os.path.join(from_root(), "apiImage", pid, "user.jpg"))
+                    apiImage_path = os.path.join(from_root(), "apiImage", pid, "user.jpg")
+                    imageStore_path = os.path.join(from_root(), "imageStore", pid)
+                    verified = detect_face(apiImage_path, imageStore_path, pid)
                     if verified['distance'] >= 70.0 and verified['verified'] > 3:
                         status = True
-                        # return "user not verified"
-                        return "Access granted"
+                        return jsonify({"Status": "Authorized"}), 200
+                    else:
+                        return jsonify({"Status": "Unauthorized"}), 401
                 else:
-                    return "No value in database"
+                    return jsonify({"Status": "No Permission"}), 200
+
+            elif gate == "InnovationLab":
+                pid = request.form['pid']
+                query = f"select innovationGate from fia.details where empid='{pid}';"
+                value = mysql.fetch_one(query)
+                if value[0]:
+                    folder_status = make_user_folder(unique_id=pid, where='api')
+                    imagefile = request.files['image_0']
+                    imagefile.save(os.path.join(from_root(), "apiImage", pid, "user.jpg"))
+                    apiImage_path = os.path.join(from_root(), "apiImage", pid, "user.jpg")
+                    imageStore_path = os.path.join(from_root(), "imageStore", pid)
+                    verified = detect_face(apiImage_path, imageStore_path, pid)
+                    if verified['distance'] >= 70.0 and verified['verified'] > 3:
+                        status = True
+                        return jsonify({"Status": "Authorized"}), 200
+                    else:
+                        return jsonify({"Status": "Unauthorized"}), 401
+                else:
+                    return jsonify({"Status": "No Permission"}), 200
 
             else:
-                return "Wrong gate"
-        else:
-            return "NO CONTENT", 204
+                return jsonify({"Status": "WRONG GATE"}), 401
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -165,72 +172,20 @@ def signup():
             msg = 'Please fill out the form !'
         elif confirm_password != password:
             msg = 'Password and Confirm password are not same!'
-        elif not re.match(r'^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$',phone_number):
+        elif not re.match(r'^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$', phone_number):
             msg = 'wrong phone number !'
         else:
             uniqueID = str(unique_id_generator())
             query = f"Insert Into fia.details (name,email,pass,phoneNumber, empid, mainGate, innovationGate) values('{username}','{email}','{password}','{phone_number}','{uniqueID}','{0}','{0}');"
             inserted = mysql.insert_record(query)
             if inserted:
-                # store in folder make_user_folder
-                folder_status = make_user_folder(unique_id=uniqueID, where='imageStore')
-                if folder_status == "Folder Created":
-                    # Open camera
-                    # take 5 photos
-                    pass
-                else:
-                    return "folder is already present"
-
-                return jsonify("Account Created"), 201
+                return jsonify({"status": "Account Created", "PID": str(uniqueID)}), 201
             else:
                 return jsonify("Please Enter correctly"), 420
 
         return jsonify({"Error": msg}), 420
     else:
-        pass
-
-
-
-
-
-# @app.route('/signup', methods=['GET', 'POST'])
-# def signup():
-#     if 'loggedin' in session:
-#         return redirect(url_for('index'))
-#     else:
-#         if request.method == "GET":
-#             logger.info('Signup Template Rendering')
-#             return render_template('signup.html')
-#         else:
-#             msg = None
-#             if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
-#                 username = request.form['username']
-#                 password = request.form['password']
-#                 confirm_password = request.form['confirm-password']
-#                 email = request.form['email']
-#                 account = mysql.fetch_one(f'SELECT * FROM tblUsers WHERE Email = "{email}"')
-#                 logger.info('Checking Database')
-#                 if account:
-#                     msg = 'EmailId already exists !'
-#                 elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-#                     msg = 'Invalid email address !'
-#                 elif not re.match(r'[A-Za-z0-9]+', username):
-#                     msg = 'Username must contain only characters and numbers !'
-#                 elif not username or not password or not email:
-#                     msg = 'Please fill out the form !'
-#                 elif confirm_password != password:
-#                     msg = 'Password and Confirm password are not same!'
-#                 else:
-#                     hashed_password = Hashing.hash_value(password)
-#                     rowcount = mysql.insert_record(
-#                         f'INSERT INTO tblUsers (Name, Email, Password, AuthToken) VALUES ("{username}", "{email}", "{hashed_password}", "pankajtest")')
-#                     if rowcount > 0:
-#                         return redirect(url_for('login'))
-#             elif request.method == 'POST':
-#                 msg = 'Please fill out the form !'
-#                 logger.error(msg)
-#             logger.info(msg)
-#             return render_template('signup.html', msg=msg)
+        return jsonify({"Error": "Unimplemented Methods"}), 404
 
 
 @app.route('/logout', methods=['POST'])
@@ -239,16 +194,6 @@ def logout():
     session.pop('pid', None)
     session.pop('email', None)
     return "Logout Successful"
-
-# Normalize the image and convert it greyscale
-# def main():
-#     apiImage_path = os.path.join(from_root(), "apiImage", '0.jpg')
-#     imageStore_path = os.path.join(from_root(), "imageStore")
-#
-#     # status, msg = capture_image(imageStore_path, 5)
-#     # if status:
-#     #     result = detect_face(apiImage_path, imageStore_path)
-#     #     print(result)
 
 
 if __name__ == "__main__":

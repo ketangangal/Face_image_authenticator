@@ -1,0 +1,10 @@
+[2022-01-29 14:11:20.525 - ERROR - face ] - Error in face detection [WinError 3] The system cannot find the path specified: 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\imageStore\\PID1aa79606-3f63-468a-bfac-a8313c94677d'
+[2022-01-29 14:17:38.810 - ERROR - face ] - Error in face detection join() argument must be str or bytes, not 'NoneType'
+[2022-01-30 12:56:41.803 - ERROR - face ] - Error in face detection [WinError 3] The system cannot find the path specified: 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\imageStore\\PID6e438ec1-4c60-4117-b614-dfd14af76cef'
+[2022-01-30 12:58:38.499 - ERROR - face ] - Error in face detection [WinError 3] The system cannot find the path specified: 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\imageStore\\PID6e438ec1-4c60-4117-b614-dfd14af76cef'
+[2022-01-30 12:59:22.646 - ERROR - face ] - Error in face detection [WinError 3] The system cannot find the path specified: 'C:\\Users\\win10\\Desktop\\Projects\\FIA\\imageStore\\PID6e438ec1-4c60-4117-b614-dfd14af76cef'
+[2022-01-30 13:02:34.671 - ERROR - face ] - Error in face detection join() argument must be str or bytes, not 'NoneType'
+[2022-01-30 13:04:51.313 - ERROR - face ] - Error in face detection join() argument must be str or bytes, not 'NoneType'
+[2022-01-30 13:08:27.410 - INFO - face ] - {'distance': 0.0, 'verified': 0}
+[2022-01-30 17:30:08.831 - INFO - face ] - {'distance': 0.0, 'verified': 0}
+[2022-01-30 17:33:16.388 - INFO - face ] - {'distance': 0.0, 'verified': 0}
